@@ -1,0 +1,6 @@
+# supascript extension
+comment = 'JavaScript / Node / Deno extensions for Supabase'
+default_version = '1.0'
+module_pathname = '$libdir/supascript'
+relocatable = false
+requires = 'plv8, http'
