@@ -105,14 +105,14 @@ So it goes:
 If you call `require(url, true)` that "true" parameter means "autoload this module" so that it gets loaded into the cache when PLV8 starts up. Only do this with modules you need to have ready to go immediately.  False essentially lazy-loads this module the first time it's called after startup.
 
 ## Requirements:
-1.  Supabase database (or any Postgresql database, probably, as long as it's a current-enough version).
+1.  Supabase database (or any PostgreSQL database, probably, as long as it's a current-enough version).
 2.  The [PLV8](https://plv8.github.io) extension loaded.  If you load the SupaScript extension, this will be loaded automatically with `cascade`.  If you're installing manually, make sure you've loaded the PLV8 extension.
 3.  The [pgsql-http](https://github.com/pramsey/pgsql-http) extension loaded.  (Same issues as #2 above.)
 
 ## BONUS FUNCTIONS
 ### sql(sql_statement, arguments)
-#### Accessing the Postgresql database from inside JavaScript
-We've included a bonus function to streamline access to your Postgresql database.
+#### Accessing the PostgreSQL database from inside JavaScript
+We've included a bonus function to streamline access to your PostgreSQL database.
 ```js
 <result> = sql(<sql_statement>, <optional array of arguments>);
 ```
@@ -125,12 +125,12 @@ var num_affected = sql('DELETE FROM tbl WHERE price > $1', [ 1000 ]);
 ```
 
 ### exec(function_name, arguments)
-#### Execute a Postgresql function and return a result
+#### Execute a PostgreSQL function and return a result
 ```js
 <result> = exec(<function_name>, <optional array of arguments>);
 ```
 
-To execute another Postgresql function that you've created, you need to call it via SQL with "select function_name(parm1, parm2, etc)".  This can get ugly and unwieldy, as shown below:
+To execute another PostgreSQL function that you've created, you need to call it via SQL with "select function_name(parm1, parm2, etc)".  This can get ugly and unwieldy, as shown below:
 
 **the ugly way**
 ```js
