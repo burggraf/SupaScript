@@ -1,27 +1,28 @@
 --complain if script is sourced in psql, rather than via CREATE EXTENSION
-\echo Use "CREATE EXTENSION supascript" to load this file. \quit
- 
-/* javascript-require-for-supabase.sql */ /* the alter database line below needs to be run ONCE on your database */
-ALTER DATABASE POSTGRES
-SET PLV8.START_PROC TO PLV8_REQUIRE;
+\echo Use "CREATE EXTENSION supascript CASCADE" to load this file. \quit
 
+/* the alter database line below needs to be run ONCE on your database */
+SET PLV8.START_PROC = 'supascript_init';
+ALTER DATABASE POSTGRES SET PLV8.START_PROC TO 'supascript_init';
 
-CREATE TABLE IF NOT EXISTS PLV8_JS_MODULES (MODULE text UNIQUE PRIMARY KEY,
-																																													AUTOLOAD BOOL DEFAULT FALSE,
-																																													SOURCE text);
+CREATE TABLE IF NOT EXISTS SUPASCRIPT_JS_MODULES (MODULE text UNIQUE PRIMARY KEY,
+AUTOLOAD BOOL DEFAULT FALSE,
+SOURCE text);
 
+CREATE OR REPLACE FUNCTION supascript_init() RETURNS VOID 
+AS $$
 
-CREATE OR REPLACE FUNCTION PLV8_REQUIRE() RETURNS VOID AS $$
-    moduleCache = {};
+    /* plv8.execute('set search_path to "$user", public, auth, extensions'); */
+    this.moduleCache = {};
 
     // execute a Postgresql function
     // i.e. exec('my_function',['parm1', 123, {"item_name": "test json object"}])
-    exec = function(function_name, parms) {
+    this.exec = function(function_name, parms) {
       var func = plv8.find_function(function_name);
       return func(...parms);
     }
 
-    load = function(key, source) {
+    this.load = function(key, source) {
         var module = {exports: {}};
         try {
             eval("(function(module, exports) {" + source + "; })")(module, module.exports);
@@ -36,7 +37,7 @@ CREATE OR REPLACE FUNCTION PLV8_REQUIRE() RETURNS VOID AS $$
 
     // execute a sql statement against the Postgresql database with optional args
     // i.e. sql('select * from people where first_name = $1 and last_name = $2', ['John', 'Smith'])
-    sql = function(sql_statement, args) {
+    this.sql = function(sql_statement, args) {
       if (args) {
         return plv8.execute(sql_statement, args);
       } else {
@@ -47,12 +48,12 @@ CREATE OR REPLACE FUNCTION PLV8_REQUIRE() RETURNS VOID AS $$
     // emulate node.js "require", with automatic download from the internet via CDN sites
     // optional autoload (boolean) parameter allows the module to be preloaded later
     // i.e. var myModule = require('https://some.cdn.com/module_content.js', true)
-    require = function(module, autoload) {
+    this.require = function(module, autoload) {
         if(moduleCache[module])
             return moduleCache[module];
 
         var rows = plv8.execute(
-            "select source from plv8_js_modules where module = $1",
+            'select source from supascript_js_modules where module = $1',
             [module]
         );
 
@@ -61,7 +62,7 @@ CREATE OR REPLACE FUNCTION PLV8_REQUIRE() RETURNS VOID AS $$
             try {
                 source = plv8.execute(`SELECT content FROM http_get('${module}');`)[0].content;
             } catch (err) {
-                plv8.elog(ERROR, `Could not load get module through http: ${module}`);
+                plv8.elog(ERROR, `Could not load module through http: ${module}`, JSON.stringify(err));
             }
             try {
                 /* the line below is written purely for esthetic reasons, so as not to mess up the online source editor */
@@ -69,9 +70,9 @@ CREATE OR REPLACE FUNCTION PLV8_REQUIRE() RETURNS VOID AS $$
                 /* in the editor and everything looks funky */
                 const quotedSource = source.replace(new RegExp(String.fromCharCode(39), 'g'), String.fromCharCode(39, 39));
 
-                plv8.execute(`insert into plv8_js_modules (module, autoload, source) values ('${module}', ${autoload ? true : false}, '${quotedSource}')`);
+                plv8.execute(`insert into supascript_js_modules (module, autoload, source) values ('${module}', ${autoload ? true : false}, '${quotedSource}')`);
             } catch (err) {
-                plv8.elog(ERROR, `Error inserting module into plv8_js_modules: ${err} ${module}, ${autoload ? true : false}, '${plv8.quote_literal(source)}'`);
+                plv8.elog(ERROR, `Error inserting module into supascript_js_modules: ${err} ${module}, ${autoload ? true : false}, '${plv8.quote_literal(source)}'`);
             }
             return load(module, source);
         }
@@ -86,8 +87,10 @@ CREATE OR REPLACE FUNCTION PLV8_REQUIRE() RETURNS VOID AS $$
     };
 
     // Grab modules worth auto-loading at context start and let them cache
-    var query = `select module, source from plv8_js_modules where autoload = true`;
+    var query = `select module, source from supascript_js_modules where autoload = true`;
     plv8.execute(query).forEach(function(row) {
-        load(row.module, row.source);
+        this.load(row.module, row.source);
     });
 $$ LANGUAGE PLV8;
+/* SET search_path TO "$user", public, auth, extensions; */
+
