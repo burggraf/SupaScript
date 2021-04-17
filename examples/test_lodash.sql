@@ -5,5 +5,5 @@ returns json as $$
     
     return retval; 
 $$ language plv8;
-select test_lodash();
 
+select test_lodash();

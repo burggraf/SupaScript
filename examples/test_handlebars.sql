@@ -13,3 +13,5 @@ returns text as $$
 
     return retval; 
 $$ language plv8;
+
+select test_handlebars();

@@ -4,4 +4,5 @@ returns json as $$
     const retval = _.map([1, 2, 3], function(num){ return num * 3; });
     return retval;
 $$ language plv8;
+
 select test_underscore();
