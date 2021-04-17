@@ -1,4 +1,4 @@
-# SupaScript: Write Supabase Postgresql Functions in JavaScript
+# SupaScript: Write Supabase PostgreSQL Functions in JavaScript (with web-based require() and module caching)
 
 - JavaScript-base, NodeJS-like, Deno-inspired extensions for Supabase.
 - Use ```require()`` to import node js modules into plv8 PostgreSQL from any location on the web, similar to [Deno](https://deno.land/).
