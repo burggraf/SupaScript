@@ -38,9 +38,15 @@ Enter our masked hero from heaven: [PLV8](https://plv8.github.io)
 
 So how do I write nifty JavaScript modules for Supabase / Postgres?
 
+### Automatic Installation
+```sql
+CREATE EXTENSION SUPASCRIPT CASCADE
+```
+### Manual Installation
 1.  Turn on the plv8 extension for Supabase (Database / Extensions / PLV8 / ON)
-2.  (Since you're already there, turn on the HTTP extension, which is a requirement for javascript-require-for-supabase.)
-3.  Write a function!
+2.  (Since you're already there, turn on the HTTP extension, which is required for loading modules over the web.)
+3.  Run the main sql block in your Supabase SQL window (comment out the \echo line at the top)
+4.  Write a function!
 
 ```sql
 create or replace function hello_javascript(name text)
