@@ -62,7 +62,7 @@ Now, you've got all that JavaScript goodness flowing, and it hits you -- What?  
 
 Enter **SupaScript**.
 
-Run the SQL contained in javascript-require-for-supabase.sql, and now you can use `require()`.  Since you don't have access to a file system, though, you can't use npm install.  So we need to have a way to load those neato node_modules.  How do we do it?
+Load the extension or run the SQL code, and now you can use `require()`.  Since you don't have access to a file system, though, you can't use npm install.  So we need to have a way to load those neato node_modules.  How do we do it?
 
 ## Method 1:  load from the web automatically
 This is the easiest (and preferred) method.
@@ -109,7 +109,7 @@ If you call `require(url, true)` that "true" parameter means "autoload this modu
 2.  The [PLV8](https://plv8.github.io) extension loaded.  (If you're on Supabase, this is easy as described above.  If you're not, you can read up on how to do that with your Postgresql databse on the PLV8 site.)
 3.  The [pgsql-http](https://github.com/pramsey/pgsql-http) extension loaded.  (Same issues as #2 above.)
 4.  ```alter database postgres set plv8.start_proc to plv8_require;```  (This needs to be run once and it's in the javascript-require-for-supabase.sql script.)
-5.  **plv8_js_modules** table (Again, this is in the javascript-require-for-supabase.sql script.)
+5.  **plv8_js_modules** table (Again, this is in the SQL script.)
 
 ## BONUS FUNCTIONS
 ### sql(sql_statement, arguments)
