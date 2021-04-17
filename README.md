@@ -106,10 +106,8 @@ If you call `require(url, true)` that "true" parameter means "autoload this modu
 
 ## Requirements:
 1.  Supabase database (or any Postgresql database, probably, as long as it's a current-enough version).
-2.  The [PLV8](https://plv8.github.io) extension loaded.  (If you're on Supabase, this is easy as described above.  If you're not, you can read up on how to do that with your Postgresql databse on the PLV8 site.)
+2.  The [PLV8](https://plv8.github.io) extension loaded.  If you load the SupaScript extension, this will be loaded automatically with `cascade`.  If you're installing manually, make sure you've loaded the PLV8 extension.
 3.  The [pgsql-http](https://github.com/pramsey/pgsql-http) extension loaded.  (Same issues as #2 above.)
-4.  ```alter database postgres set plv8.start_proc to plv8_require;```  (This needs to be run once and it's in the javascript-require-for-supabase.sql script.)
-5.  **plv8_js_modules** table (Again, this is in the SQL script.)
 
 ## BONUS FUNCTIONS
 ### sql(sql_statement, arguments)
