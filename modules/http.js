@@ -1,24 +1,11 @@
-module.exports.request = 
-function(options) {
-    const retval = sql(`select content from http_get('https://google.com')`)[0].content;
-    return retval;
-};
-
 /*
-get method returns:
+methods return:
 {
   status,       // int
   content_type, // text
   headers,      // jsonb
   content       // text
 }
-
- method       | http_method       |
- uri          | character varying |
- headers      | http_header[]     |
- content_type | character varying |
- content      | character varying |
-
 */
 module.exports.header = function(url, value, headers = null) {
     const retval = 
