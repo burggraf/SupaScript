@@ -4,6 +4,12 @@
 - Use ```require()`` to import node js modules into plv8 PostgreSQL from any location on the web, similar to [Deno](https://deno.land/).
 - ```sql()``` helper function to give easy access to PostgreSQL databases 
 - ```exec()``` helper function to make it easy to call other SupaScript or PlpgSQL functions
+- Packaged as a PostgreSQL extension
+
+## Installation
+```sql
+CREATE EXTENSION SUPASCRIPT CASCADE
+```
 
 ## Quick Syntax and Sample:
 ```js
