@@ -1,9 +1,9 @@
 # SupaScript: Write Supabase PostgreSQL Functions in JavaScript (with web-based require() and module caching)
 
 - JavaScript-base, NodeJS-like, Deno-inspired extensions for Supabase.
-- Use ```require()`` to import node js modules into plv8 PostgreSQL from any location on the web, similar to [Deno](https://deno.land/).
-- ```sql()``` helper function to give easy access to PostgreSQL databases 
-- ```exec()``` helper function to make it easy to call other SupaScript or PlpgSQL functions
+- Use `require()` to import node js modules into plv8 PostgreSQL from any location on the web, similar to [Deno](https://deno.land/).
+- `sql()` helper function to give easy access to PostgreSQL databases 
+- `exec()` helper function to make it easy to call other SupaScript or PlpgSQL functions
 - Packaged as a PostgreSQL extension
 
 ## Installation
@@ -38,9 +38,15 @@ Enter our masked hero from heaven: [PLV8](https://plv8.github.io)
 
 So how do I write nifty JavaScript modules for Supabase / Postgres?
 
+### Automatic Installation
+```sql
+CREATE EXTENSION SUPASCRIPT CASCADE
+```
+### Manual Installation
 1.  Turn on the plv8 extension for Supabase (Database / Extensions / PLV8 / ON)
-2.  (Since you're already there, turn on the HTTP extension, which is a requirement for javascript-require-for-supabase.)
-3.  Write a function!
+2.  (Since you're already there, turn on the HTTP extension, which is required for loading modules over the web.)
+3.  Run the main sql block in your Supabase SQL window (comment out the \echo line at the top)
+4.  Write a function!
 
 ```sql
 create or replace function hello_javascript(name text)
@@ -56,7 +62,7 @@ Now, you've got all that JavaScript goodness flowing, and it hits you -- What?  
 
 Enter **SupaScript**.
 
-Run the SQL contained in javascript-require-for-supabase.sql, and now you can use `require()`.  Since you don't have access to a file system, though, you can't use npm install.  So we need to have a way to load those neato node_modules.  How do we do it?
+Load the extension or run the SQL code, and now you can use `require()`.  Since you don't have access to a file system, though, you can't use npm install.  So we need to have a way to load those neato node_modules.  How do we do it?
 
 ## Method 1:  load from the web automatically
 This is the easiest (and preferred) method.
@@ -99,16 +105,14 @@ So it goes:
 If you call `require(url, true)` that "true" parameter means "autoload this module" so that it gets loaded into the cache when PLV8 starts up. Only do this with modules you need to have ready to go immediately.  False essentially lazy-loads this module the first time it's called after startup.
 
 ## Requirements:
-1.  Supabase database (or any Postgresql database, probably, as long as it's a current-enough version).
-2.  The [PLV8](https://plv8.github.io) extension loaded.  (If you're on Supabase, this is easy as described above.  If you're not, you can read up on how to do that with your Postgresql databse on the PLV8 site.)
+1.  Supabase database (or any PostgreSQL database, probably, as long as it's a current-enough version).
+2.  The [PLV8](https://plv8.github.io) extension loaded.  If you load the SupaScript extension, this will be loaded automatically with `cascade`.  If you're installing manually, make sure you've loaded the PLV8 extension.
 3.  The [pgsql-http](https://github.com/pramsey/pgsql-http) extension loaded.  (Same issues as #2 above.)
-4.  ```alter database postgres set plv8.start_proc to plv8_require;```  (This needs to be run once and it's in the javascript-require-for-supabase.sql script.)
-5.  **plv8_js_modules** table (Again, this is in the javascript-require-for-supabase.sql script.)
 
 ## BONUS FUNCTIONS
 ### sql(sql_statement, arguments)
-#### Accessing the Postgresql database from inside JavaScript
-We've included a bonus function to streamline access to your Postgresql database.
+#### Accessing the PostgreSQL database from inside JavaScript
+We've included a bonus function to streamline access to your PostgreSQL database.
 ```js
 <result> = sql(<sql_statement>, <optional array of arguments>);
 ```
@@ -121,12 +125,12 @@ var num_affected = sql('DELETE FROM tbl WHERE price > $1', [ 1000 ]);
 ```
 
 ### exec(function_name, arguments)
-#### Execute a Postgresql function and return a result
+#### Execute a PostgreSQL function and return a result
 ```js
 <result> = exec(<function_name>, <optional array of arguments>);
 ```
 
-To execute another Postgresql function that you've created, you need to call it via SQL with "select function_name(parm1, parm2, etc)".  This can get ugly and unwieldy, as shown below:
+To execute another PostgreSQL function that you've created, you need to call it via SQL with "select function_name(parm1, parm2, etc)".  This can get ugly and unwieldy, as shown below:
 
 **the ugly way**
 ```js
