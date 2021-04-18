@@ -15,7 +15,7 @@ if (res.status === 200) {
 ```
 
 ## Return Object
-All methods return the a JSON response object with the following fields:
+All methods return a JSON response object with the following fields:
 
 - status (int)
 - content_type (text)
