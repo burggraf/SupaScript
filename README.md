@@ -158,6 +158,11 @@ Just note: exec calls exactly two parameters:
 1.  the name of the function you want to call
 2.  an optional array of parameters you want to pass to the function
 
+### require("http")
+#### Like the NodeJS built-in, but easier
+This is a SupaScript (JavaScript) wrapper around [pgsql-http](https://github.com/pramsey/pgsql-http).
+See the full documentation here:  [http module](./docs/http.md)
+
 ## Troubleshooting
 If you need to reload a module for some reason, just remove the module's entry from your **plv8_js_modules** table.  Or just wipe it out:  **delete from plv8_js_modules;**
 
