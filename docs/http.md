@@ -1,5 +1,8 @@
 # http module
 This built-in module works like the NodeJS built-ins for "http" and "https".
+
+This is a SupaScript (JavaScript) wrapper around [pgsql-http](https://github.com/pramsey/pgsql-http).
+
 ### Quick example:
 ```js
 const http = require('http');
