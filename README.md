@@ -5,7 +5,7 @@
 - `sql()` helper function to give easy access to PostgreSQL databases 
 - `exec()` helper function to make it easy to call other SupaScript or PlpgSQL functions
 - Built-in support (like NodeJS built-ins) for:
-	- `require("http")` easy interface to make web calls and send headers, etc. for GET, POST, PUT, PATCH, DELETE, HEAD, HEADER
+	- `require("http")` [see documentation](./docs/http.md): easy interface to make web calls and send headers, etc. for GET, POST, PUT, PATCH, DELETE, HEAD, HEADER
 - Polyfills
 	- Base64: btoa(), atob()
 - Packaged as a PostgreSQL extension
