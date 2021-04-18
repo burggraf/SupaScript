@@ -11,17 +11,19 @@ if (res.status === 200) {
 }
 ```
 
-
 ## Return Object
 All methods return the a JSON response object with the following fields:
 
-- status int
-- content_type text
-- headers json
-- content text
+- status (int)
+- content_type (text)
+- headers (json)
+- content (text)
 
-Example response: ```
-{ "status": 200, "content_type": "application/json",  "headers": [{"field": "Access-Control-Allow-Credentials",      "value": "true"},{"field": "Date","value": "Sun, 18 Apr 2021 00:54:14 GMT"}], "content": "text-result-here" }
+Example response:
+
+```json
+{"status": 200, "content_type": "application/json",  "headers": [{"field": "Access-Control-Allow-Credentials", "value": "true"},{"field": "Date","value": "Sun, 18 Apr 2021 00:54:14 GMT"}], "content": "text-result-here"}
+
 ```
 
 ## Methods
