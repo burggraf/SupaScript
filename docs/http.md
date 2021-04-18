@@ -1,7 +1,7 @@
 # http module
 This built-in module works like the NodeJS built-ins for "http" and "https".
 ### Quick example:
-```
+```js
 const http = require('http');
 const res = http.get('https://www.google.com');
 if (res.status === 200) {
@@ -27,7 +27,7 @@ Example response: ```
 ## Methods
 ### GET
 ```
-http.get(<url>, <headers>)
+http.get(url, headers)
 ```
 parameters:
 
@@ -37,7 +37,7 @@ parameters:
 
 ### POST
 ```
-http.post(<url>, <payload>, <headers>, <content-type>)
+http.post(url, payload, headers, content-type)
 ```
 parameters:
 
@@ -51,7 +51,7 @@ parameters:
 
 ### PUT
 ```
-http.put(<url>, <payload>, <headers>, <content-type>)
+http.put(url, payload, headers, content-type)
 ```
 parameters:
 
@@ -65,7 +65,7 @@ parameters:
 
 ### PATCH
 ```
-http.patch(<url>, <payload>, <headers>, <content-type>)
+http.patch(url, payload, headers, content-type)
 ```
 parameters:
 
@@ -79,7 +79,7 @@ parameters:
 
 ### DELETE
 ```
-http.delete(<url>, <headers>)
+http.delete(url, headers)
 ```
 parameters:
 
@@ -90,7 +90,7 @@ parameters:
 
 ### HEAD
 ```
-http.head(<url>, <headers>)
+http.head(url, headers)
 ```
 parameters:
 
@@ -100,7 +100,7 @@ parameters:
 
 ### HEADER
 ```
-http.header(<url>, <value>, <headers>)
+http.header(url, value, headers)
 ```
 parameters:
 
