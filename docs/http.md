@@ -115,7 +115,7 @@ parameters:
 ## Examples
 
 ### Simple Get
-```
+```sql
 create or replace function test_http_get()
 returns text as $$
 
@@ -132,7 +132,7 @@ select test_http_get();
 ```
 
 ### Simple Post
-```
+```sql
 create or replace function test_http_post()
 returns text as $$
 
@@ -156,7 +156,7 @@ select test_http_post();
 ### Basic Authentication
 Why do they call it "basic authentication" when it always takes me all day to figure out how to encode it correctly?
 
-```
+```sql
 create or replace function test_basic_authentication()
 returns text as $$
 
