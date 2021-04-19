@@ -42,7 +42,7 @@ select log_type,content from supascript_log order by created desc limit 100;
 ```js
 console.log('log a string', 42, new Date(), {'key': 'value'});
 ```
-###info()
+### info()
 #### parameters
 - any or none
 
@@ -51,7 +51,7 @@ console.log('log a string', 42, new Date(), {'key': 'value'});
 console.info('log a string', 42, new Date(), {'key': 'value'});
 ```
 
-###warn()
+### warn()
 #### parameters
 - any or none
 
@@ -60,7 +60,7 @@ console.info('log a string', 42, new Date(), {'key': 'value'});
 console.warn('log a string', 42, new Date(), {'key': 'value'});
 ```
 
-###error()
+### error()
 #### parameters
 - any or none
 
@@ -69,7 +69,7 @@ console.warn('log a string', 42, new Date(), {'key': 'value'});
 console.error('log a string', 42, new Date(), {'key': 'value'});
 ```
 
-###assert
+### assert
 Accepts an expression as the first parameter.  If the expression evaluates to false, the message is written to the log table.  Otherwise it's not.
 #### parameters
 - expression (boolean)
@@ -80,7 +80,7 @@ Accepts an expression as the first parameter.  If the expression evaluates to fa
 console.assert(x > 10, 'x was not greater than 10!');
 ```
 
-###time
+### time
 Starts a timer which can be optionally named.  Unlimited multiple timers can run simultaneously as long as they have unique names.
 #### parameters
 - name (string) (optional)
@@ -92,7 +92,7 @@ console.time('my-timer');
 console.timeEnd('my-timer');
 ```
 
-###timeEnd
+### timeEnd
 Log the time interval since the start of the named timer (in milliseconds).
 #### parameters
 - name (string) (optional) (the name must match a timer started with `console.time()`)
