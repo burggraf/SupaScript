@@ -28,6 +28,7 @@ select test_console();
 ```sql
 select log_type,content from supascript_log order by created desc limit 100;
 ```
+We log additional data into the supascript_log that you may or may not find useful, including `created, _catalog, _user, _schema, _schemas, _pid` (time created, current catalog, current user, current schema, current schema path setting, current process id).
 
 
 ## Methods
