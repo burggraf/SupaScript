@@ -4,6 +4,7 @@
 - Use `require()` to import node js modules into plv8 PostgreSQL from any location on the web, similar to [Deno](https://deno.land/).
 - `sql()` helper function to give easy access to PostgreSQL databases 
 - `exec()` helper function to make it easy to call other SupaScript or PlpgSQL functions
+- `console` emulation for `console.log()` and other `console` functions [See the docs](./docs/console.md)
 - Built-in support (like NodeJS built-ins) for:
 	- `require("http")` [see documentation](./docs/http.md): easy interface to make web calls and send headers, etc. for GET, POST, PUT, PATCH, DELETE, HEAD, HEADER
 - Polyfills
@@ -158,10 +159,9 @@ Just note: exec calls exactly two parameters:
 1.  the name of the function you want to call
 2.  an optional array of parameters you want to pass to the function
 
-### require("http")
-#### Like the NodeJS built-in, but easier
-This is a SupaScript (JavaScript) wrapper around [pgsql-http](https://github.com/pramsey/pgsql-http).
-See the full documentation here:  [http module](./docs/http.md)
+### console
+We emulate the JavaScript `console` object so you can `console.log('stuff')` and do profiling `console.time('my-timer'); console.timeEnd('my-timer');`
+[See the docs](./docs/console.md)
 
 ## Troubleshooting
 If you need to reload a module for some reason, just remove the module's entry from your **plv8_js_modules** table.  Or just wipe it out:  **delete from plv8_js_modules;**
