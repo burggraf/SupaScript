@@ -1,4 +1,7 @@
 # CHANGELOG
+## 1.3
+### Fixed
+- better handling for logging of the current query name (function name)
 ## 1.2
 ### New
 - added `console` object to log debug objects to `SUPASCRIPT_LOG` table
