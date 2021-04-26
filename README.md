@@ -13,6 +13,7 @@
 
 ## Installation
 (If you're using Supabase, you can safely use method 1 below.)
+
 Method 1: Copy the contents of the file `EASY-INSTALL-Vx.yy.SQL` into a SQL window in your database and run it.
 - The VLP8 extension must be available on your server
 - The HTTP extension must be available on your server
