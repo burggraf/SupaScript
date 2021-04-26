@@ -7,40 +7,40 @@ methods return:
   content       // text
 }
 */
-module.exports.header = function(url, value, headers = null) {
+module.exports.header = function(url, value, headers = []) {
     const retval = 
     sql(`select * from http(('HEADER','${url}','${format_headers(headers)}', null, '${encodeURIComponent(value)}'))`)[0];
     return retval;    
 }
-module.exports.head = function(url, headers = null) {
+module.exports.head = function(url, headers = []) {
     const retval = 
     sql(`select * from http(('HEAD','${url}','${format_headers(headers)}', null, null))`)[0];
     return retval;    
 }
-module.exports.get = function(url, headers = null) {
+module.exports.get = function(url, headers = []) {
     const retval = 
     sql(`select * from http(('GET','${url}','${format_headers(headers)}', null, null))`)[0];
     
     return retval;    
 }
-module.exports.delete = function(url, headers = null) {
+module.exports.delete = function(url, headers = []) {
     const retval = 
     sql(`select * from http(('DELETE','${url}','${format_headers(headers)}', null, null))`)[0];
     return retval;    
 }
-module.exports.post = function(url, payload, headers = null, content_type) {
+module.exports.post = function(url, payload, headers = [], content_type) {
     const params = serializeObject(payload);;
     const retval = 
     sql(`select * from http(('POST','${url}','${format_headers(headers)}', '${content_type || 'application/x-www-form-urlencoded'}', '${params}'))`)[0];
     return retval;    
 }
-module.exports.put = function(url, payload, headers = null, content_type) {
+module.exports.put = function(url, payload, headers = [], content_type) {
     const params = serializeObject(payload);;
     const retval = 
     sql(`select * from http(('PUT','${url}','${format_headers(headers)}','${content_type || 'application/x-www-form-urlencoded'}', '${params}'))`)[0];
     return retval;    
 }
-module.exports.patch = function(url, payload, headers = null, content_type) {
+module.exports.patch = function(url, payload, headers = [], content_type) {
     const params = serializeObject(payload);;
     const retval = 
     sql(`select * from http(('PATCH','${url}','${format_headers(headers)}','${content_type || 'application/x-www-form-urlencoded'}', '${params}'))`)[0];
