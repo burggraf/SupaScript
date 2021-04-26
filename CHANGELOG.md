@@ -2,6 +2,9 @@
 ## 1.3
 ### Fixed
 - better handling for logging of the current query name (function name)
+### New
+- added EASY-INSTALL-V1.3.SQL for quick copy-paste installation into Supabase
+- added package.json for publishing to npm
 ## 1.2
 ### New
 - added `console` object to log debug objects to `SUPASCRIPT_LOG` table
