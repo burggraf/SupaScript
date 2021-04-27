@@ -1,4 +1,7 @@
 # CHANGELOG
+## 1.4
+### Fixed
+- added `ALTER PUBLICATION supabase_realtime ADD supascript_log` so log file can be queried with the realtime engine
 ## 1.3
 ### Fixed
 - better handling for logging of the current query name (function name)
