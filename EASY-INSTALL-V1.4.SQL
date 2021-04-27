@@ -1,5 +1,5 @@
 ------------------------------
--- Install SupaScript v1.3 ---
+-- Install SupaScript v1.4 ---
 ------------------------------
 CREATE EXTENSION IF NOT EXISTS PLV8;
 CREATE EXTENSION IF NOT EXISTS HTTP;
@@ -9,7 +9,7 @@ DROP FUNCTION IF EXISTS supascript_init();
 SET PLV8.START_PROC = 'supascript_init';
 ALTER DATABASE POSTGRES SET PLV8.START_PROC TO 'supascript_init';
 
-CREATE TABLE IF NOT EXISTS SUPASCRIPT_LOG
+CREATE TABLE IF NOT EXISTS supascript_log
 (
     id uuid primary key default uuid_generate_v4(),
     created timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS SUPASCRIPT_LOG
     query text,
     content jsonb
 );
+ALTER PUBLICATION supabase_realtime ADD TABLE supascript_log;
 
 CREATE TABLE IF NOT EXISTS SUPASCRIPT_JS_MODULES (MODULE text UNIQUE PRIMARY KEY,
 AUTOLOAD BOOL DEFAULT FALSE,
