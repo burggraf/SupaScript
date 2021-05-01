@@ -5,7 +5,7 @@
 - `sql()` helper function to give easy access to PostgreSQL databases 
 - `exec()` helper function to make it easy to call other functions written in SupaScript (PLV8), PLPGSQL, SQL or any other supported language
 - `console` emulation for `console.log()` and other `console` functions [See the docs](./docs/console.md)
-- (See [SupaScriptConsole](https://github.com/burggraf/SupaScriptConsole) client library for viewing console.log output in your browser console in real time
+- (See [SupaScriptConsole](https://github.com/burggraf/SupaScriptConsole) client library for viewing console.log output in your browser console in real time)
 - Built-in support (like NodeJS built-ins) for:
 	- `require("http")` [see documentation](./docs/http.md): easy interface to make web calls and send headers, etc. for GET, POST, PUT, PATCH, DELETE, HEAD, HEADER
 - Polyfills
