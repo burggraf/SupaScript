@@ -1,5 +1,7 @@
 # CHANGELOG
 ## 1.4
+### Documentation Updated 01 May 2021
+- Major overhaul of the README.md file
 ### Fixed
 - added `ALTER PUBLICATION supabase_realtime ADD TABLE supascript_log` so log file can be queried with the realtime engine
 ## 1.3
