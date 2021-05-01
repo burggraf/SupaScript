@@ -69,7 +69,7 @@ create or replace function hello_javascript(name text)
 ```
 Since we're creating a function (or updating it later using `replace`), all functions are written using the create/replace syntax.  The name of the function here is simply `hello_javascript` and the parameter the function accepts is called `name` and it's type is `text`.  You can, of course, accept multiple parameters separated by commas, but each must have a type, such as 'hello_javascript(name text, age int, big_blob_of_json json)`, etc.
 
-``sql
+```sql
 returns json
 ```
 You need to add a return type to your function.  Here we are saying this function returns a `JSON Object`.  You can return text, int, or even void if you don't really need a return value.  Any valid data type can be returned from a function.  **Tip: if you have multiple items you want to return from a function, you probably want to return json -- this allows you the most flexibility.**
