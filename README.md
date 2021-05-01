@@ -3,7 +3,7 @@
 - JavaScript-based, NodeJS-like, Deno-inspired extensions for Supabase.
 - Use `require()` to import node js modules into plv8 PostgreSQL from any location on the web, similar to [Deno](https://deno.land/).
 - `sql()` helper function to give easy access to PostgreSQL databases 
-- `exec()` helper function to make it easy to call other SupaScript or PlpgSQL functions
+- `exec()` helper function to make it easy to call other functions written in SupaScript (PLV8), PLPGSQL, SQL or any other supported language
 - `console` emulation for `console.log()` and other `console` functions [See the docs](./docs/console.md)
 - Built-in support (like NodeJS built-ins) for:
 	- `require("http")` [see documentation](./docs/http.md): easy interface to make web calls and send headers, etc. for GET, POST, PUT, PATCH, DELETE, HEAD, HEADER
