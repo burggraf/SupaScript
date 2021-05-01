@@ -194,5 +194,6 @@ Sometimes a module won't work.  If you're using the minified version, try the no
 There's no event loop here -- go back in your time machine to 1998, before you knew what Google was, and all programming was simple, and synchronous, and you could still keep your shoes on going through airport security.  Don't try using promises, async / await, or anyting else that's fancy.  Code it like your grandpa would, on a brand new Pentium-based screamer with a big-honkin' CRT monitor that uses more energy than a Tesla Model S.
 
 ## Credits
-This is based on the great work of Ryan McGrath here:  [Deep Dive Into PLV8](https://rymc.io/blog/2016/a-deep-dive-into-plv8)
+- This is based on the great work of Ryan McGrath here:  [Deep Dive Into PLV8](https://rymc.io/blog/2016/a-deep-dive-into-plv8)
+- Of course, the **real** work here was done by the fantastic [PLV8](https://plv8.github.io) team. 
 
