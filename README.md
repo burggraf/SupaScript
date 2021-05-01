@@ -10,7 +10,7 @@
 	- `require("http")` [see documentation](./docs/http.md): easy interface to make web calls and send headers, etc. for GET, POST, PUT, PATCH, DELETE, HEAD, HEADER
 - Polyfills
 	- Base64: btoa(), atob()
-- Packaged as a PostgreSQL extension
+- Packaged as a PostgreSQL extension or just use the EASY-INSTALL-Vx.y.SQL script to install it
 
 ## Installation
 (If you're using Supabase, you can safely use method 1 below.)
