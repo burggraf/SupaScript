@@ -12,6 +12,14 @@
 	- Base64: btoa(), atob()
 - Packaged as a PostgreSQL extension or just use the EASY-INSTALL-Vx.y.SQL script to install it
 
+## Make writing PostgreSQL modules fun again
+Can you write JavaScript in your sleep? Me too.
+Can you write PlpgSql queries to save your life? Me either.
+
+Enter our masked hero from heaven: [PLV8](https://plv8.github.io)
+
+So how do I write nifty JavaScript modules for Supabase / Postgres?  Use SupaScript!
+
 ## Installation
 (If you're using Supabase, you can safely use method 1 below.)
 
@@ -24,16 +32,7 @@ Method 2: Regular extension installation method (if SUPASCRIPT is already availa
 CREATE EXTENSION SUPASCRIPT CASCADE
 ```
 
-## Quick Syntax and Sample:
-```js
-const module_name = require(<url-or-module-name>, <autoload>);
-```
-where
-
-* `url-or-module-name`: either the public url of the node js module or a module name you've put into the plv8_js_modules table manually.
-
-* `autoload`: (optional) boolean:  true if you want this module to be loaded automatically when the plv8 extension starts up, otherwise false
-
+## Quick Sample:
 Sample function:
 ```sql
 create or replace function test_underscore()
@@ -43,24 +42,19 @@ returns json as $$
     return retval;
 $$ language plv8;
 ```
-## Make writing PostgreSQL modules fun again
-Can you write JavaScript in your sleep? Me too.
-Can you write PlpgSql queries to save your life? Me either.
-
-Enter our masked hero from heaven: [PLV8](https://plv8.github.io)
-
-So how do I write nifty JavaScript modules for Supabase / Postgres?
-
-### Automatic Installation
-```sql
-CREATE EXTENSION SUPASCRIPT CASCADE
+The sample above uses the `require()` function to dynamically load the underscore library:
+```js
+const module_name = require(<url-or-module-name>, <autoload>);
 ```
-### Manual Installation
-1.  Turn on the plv8 extension for Supabase (Database / Extensions / PLV8 / ON)
-2.  (Since you're already there, turn on the HTTP extension, which is required for loading modules over the web.)
-3.  Run the main sql block in your Supabase SQL window (comment out the \echo line at the top)
-4.  Write a function!
+where
 
+* `url-or-module-name`: either the public url of the node js module or a module name you've put into the plv8_js_modules table manually.
+
+* `autoload`: (optional) boolean:  true if you want this module to be loaded automatically when the plv8 extension starts up, otherwise false
+
+## Writing SupaScript functions on the server using JavaScript V8
+
+Functions are stored in your PostgreSQL database, so you write them (create them) as SQL statements:
 ```sql
 create or replace function hello_javascript(name text)
 returns json as $$
@@ -69,16 +63,36 @@ returns json as $$
 $$ language plv8;
 ```
 
-The syntax is a little weird, but you'll get used to it.  You need to add a data type after any function parameters.  You need to add the return type after the function name (and parameters).  You need to delimit the function with $$ pairs.  You have to add "language plv8" at the end.  Not so bad.  Cut and paste from a template if you can't remember all that (like I can't.)
+### Let's break this down
+```sql
+create or replace function hello_javascript(name text)
+```
+Since we're creating a function (or updating it later using `replace`), all functions are written using the create/replace syntax.  The name of the function here is simply `hello_javascript` and the parameter the function accepts is called `name` and it's type is `text`.  You can, of course, accept multiple parameters separated by commas, but each must have a type, such as 'hello_javascript(name text, age int, big_blob_of_json json)`, etc.
+
+``sql
+returns json
+```
+You need to add a return type to your function.  Here we are saying this function returns a `JSON Object`.  You can return text, int, or even void if you don't really need a return value.  Any valid data type can be returned from a function.  **Tip: if you have multiple items you want to return from a function, you probably want to return json -- this allows you the most flexibility.**
+
+```sql
+as $$
+// JAVASCRIPT CODE HERE
+$$
+```
+Everything in between the $$ and $$ is pure JavaScript V8 code.  Simple.
+```sql
+language plv8;
+```
+You need to end your function with `language plv8;` to tell PostgreSQL to use the PLV8 (JavaScript V8) engine to run this function.  You can use uppercase or lowercase here (`LANGUAGE PLV8;').
 
 Now, you've got all that JavaScript goodness flowing, and it hits you -- What?  I can't access the huge world of Node JS libraries?  What do you expect me to do -- write JavaScript from scratch like an animal?  Forget it!
 
-Enter **SupaScript**.
+Enter **SupaScript require()**.
 
 Load the extension or run the SQL code, and now you can use `require()`.  Since you don't have access to a file system, though, you can't use npm install.  So we need to have a way to load those neato node_modules.  How do we do it?
 
 ## Method 1:  load from the web automatically
-This is the easiest (and preferred) method.
+This is the easiest **(and preferred)** method.
 
 ```
 const module = require('https://url-to-public-function');
