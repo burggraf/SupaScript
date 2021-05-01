@@ -89,9 +89,10 @@ Now, you've got all that JavaScript goodness flowing, and it hits you -- What?  
 
 Enter **SupaScript require()**.
 
-Load the extension or run the SQL code, and now you can use `require()`.  Since you don't have access to a file system, though, you can't use npm install.  So we need to have a way to load those neato node_modules.  How do we do it?
+## Using require()
+If you've used NodeJS before, you're in love with require().  Since you don't have access to a file system, though, you can't use npm install.  So we need to have a way to load those neato node_modules.  How do we do it?
 
-## Method 1:  load from the web automatically
+### Method 1:  load from the web automatically
 This is the easiest **(and preferred)** method.
 
 ```
@@ -112,13 +113,13 @@ Then just call this function from SQL:
 select test_momentjs();
 ```
 
-Where do I find the url?  Hunt around on the library documentation page to find a CDN version of the library or look for documentation that shows how to load the library in HTML with a <SCRIPT> command.
+Where do I find the url for the function or library I want to use?  Hunt around on the library documentation page to find a CDN version of the library or look for documentation that shows how to load the library in HTML with a <SCRIPT> command.  Basically, the url you use **must point to plain javascript code that can be executed inside a block of JavaScript.**
 
-## Method 2:  manually load the library into your plv8_js_modules table
-This isn't the ideal method, but you can do this on your own if you want.  Basically you load the source code for the module into the table.  But you need to deal with escaping the single-quotes and all that fun stuff.  Try Method 1 first, there's really no downside as long as you choose a compatible library and you can access it from the internet the first time you use it.  See below for details on how all this works.
+### Method 2:  manually load the library into your plv8_js_modules table
+This isn't the ideal method, but you can do this on your own if you want.  Basically you load the source code for the module into the `plv8_js_modules` table.  But you need to deal with escaping the single-quotes and all that fun stuff.  Try Method 1 first, there's really no downside as long as you choose a compatible library and you can access it from the internet the first time you use it.  See below for details on how all this works.
 
-## How it works
-The first time you call require(url) the following stuff happens:
+### How require() works
+The first time you call `require(url)` the following stuff happens:
 
 1.  If your requested module is cached, we return it from the cache.  Super fast!  Woohoo!  Otherwise...
 2.  We check to see if the url (or module name if you loaded it manually) exists in the `plv8_js_modules` table.  If it does, we load the source for the module from the database and then `eval()` it.  Yes, we're using `eval()`, and that's how this is all possible.  We know about the security vulnerabilities with `eval()` but in this case, it's a necessary evil.  If you've got a better way, hit me up on GitHub.
@@ -129,7 +130,7 @@ So it goes:
 2.  Are you in the database?  Load you from the database and cache you for next time!
 3.  First time being called, ever?  We'll load you over http, write you to the database, and you're all set and loaded for next time!
 
-If you call `require(url, true)` that "true" parameter means "autoload this module" so that it gets loaded into the cache when PLV8 starts up. Only do this with modules you need to have ready to go immediately.  False essentially lazy-loads this module the first time it's called after startup.
+If you call `require(url, true)` that "true" parameter means **"autoload this module"** so that it gets loaded into the cache when PLV8 starts up. Only do this with modules you need to have ready to go immediately.  False essentially lazy-loads this module the first time it's called after startup.
 
 ## Requirements:
 1.  Supabase database (or any PostgreSQL database, probably, as long as it's a current-enough version).
@@ -148,7 +149,7 @@ This maps directly to plv8.execute() -- SEE: [plv8 documentation here](https://p
 Example usage:
 ```js
 var json_result = sql('SELECT * FROM tbl');
-var num_affected = sql('DELETE FROM tbl WHERE price > $1', [ 1000 ]);
+var num_affected = sql('DELETE FROM tbl WHERE price > $1 and type = $2', [ 1000, 'active' ]);
 ```
 
 ### exec(function_name, arguments)
