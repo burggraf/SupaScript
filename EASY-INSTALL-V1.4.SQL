@@ -22,8 +22,6 @@ CREATE TABLE IF NOT EXISTS supascript_log
     query text,
     content jsonb
 );
-ALTER PUBLICATION supabase_realtime DROP TABLE supascript_log;
-ALTER PUBLICATION supabase_realtime ADD TABLE supascript_log;
 
 CREATE TABLE IF NOT EXISTS SUPASCRIPT_JS_MODULES (MODULE text UNIQUE PRIMARY KEY,
 AUTOLOAD BOOL DEFAULT FALSE,
@@ -173,3 +171,5 @@ AS $$
         this.load(row.module, row.source);
     });
 $$ LANGUAGE PLV8;
+ALTER PUBLICATION supabase_realtime ADD TABLE supascript_log;
+
