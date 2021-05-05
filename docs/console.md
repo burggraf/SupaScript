@@ -32,7 +32,7 @@ We log additional data into the supascript_log that you may or may not find usef
 
 
 ## Methods
-- All methods (exept `time` write a record to the `supascript_log` PostgreSQL table.
+- All methods (except `time` write a record to the `supascript_log` PostgreSQL table.
 - Currently, the only difference between `log`, `info`, `warn`, and `error` is that `supascript_log.log_type` is set to 'LOG', 'INFO', 'WARN' or 'ERROR' when the item is logged.  This allows you to filter out the type of log records you want to see, though, which is quite handy.
 
 ### log()
