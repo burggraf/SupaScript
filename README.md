@@ -189,9 +189,9 @@ We emulate the JavaScript `console` object so you can `console.log('stuff')` and
 ## Troubleshooting
 If you need to reload a module for some reason, just remove the module's entry from your **plv8_js_modules** table.  Or just wipe it out:  **delete from plv8_js_modules;**
 
-Sometimes a module won't work.  If you're using the minified version, try the non-minified version of the library.  Or vice-versa.  Not every library is going to work, especailly anything that requires a DOM, or access to hardware, or things like socket.io.  This is just basic JavsScript stuff -- it's not going dispense Pepsi and shoot out rainbows.  But it's still very cool and will save you eons of programming time.
+Sometimes a module won't work.  If you're using the minified version, try the non-minified version of the library.  Or vice-versa.  Not every library is going to work, especially anything that requires a DOM, or access to hardware, or things like socket.io.  This is just basic JavsScript stuff -- it's not going dispense Pepsi and shoot out rainbows.  But it's still very cool and will save you eons of programming time.
 ### There is NO EVENT LOOP
-There's no event loop here -- go back in your time machine to 1998, before you knew what Google was, and all programming was simple, and synchronous, and you could still keep your shoes on going through airport security.  Don't try using promises, async / await, or anyting else that's fancy.  Code it like your grandpa would, on a brand new Pentium-based screamer with a big-honkin' CRT monitor that uses more energy than a Tesla Model S.
+There's no event loop here -- go back in your time machine to 1998, before you knew what Google was, and all programming was simple, and synchronous, and you could still keep your shoes on going through airport security.  Don't try using promises, async / await, or anything else that's fancy.  Code it like your grandpa would, on a brand new Pentium-based screamer with a big-honkin' CRT monitor that uses more energy than a Tesla Model S.
 
 ## Credits
 - This is based on the great work of Ryan McGrath here:  [Deep Dive Into PLV8](https://rymc.io/blog/2016/a-deep-dive-into-plv8)
