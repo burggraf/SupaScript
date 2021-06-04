@@ -24,7 +24,7 @@ So how do I write nifty JavaScript modules for Supabase / Postgres?  Use SupaScr
 (If you're using Supabase, you can safely use method 1 below.)
 
 Method 1: Copy the contents of the file `EASY-INSTALL-Vx.yy.SQL` into a SQL window in your database and run it.
-- The VLP8 extension must be available on your server
+- The PLV8 extension must be available on your server
 - The HTTP extension must be available on your server
 
 Method 2: Regular extension installation method (if SUPASCRIPT is already available on your server along with PLV8 and HTTP)
