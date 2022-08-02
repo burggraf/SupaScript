@@ -1,5 +1,5 @@
 ------------------------------
--- Install SupaScript v1.4 ---
+-- Install SupaScript v1.5 ---
 ------------------------------
 CREATE EXTENSION IF NOT EXISTS PLV8;
 CREATE EXTENSION IF NOT EXISTS HTTP;
@@ -24,9 +24,9 @@ CREATE TABLE IF NOT EXISTS supascript_log
     content jsonb
 );
 
-CREATE TABLE IF NOT EXISTS SUPASCRIPT_JS_MODULES (MODULE text UNIQUE PRIMARY KEY,
-AUTOLOAD BOOL DEFAULT FALSE,
-SOURCE text);
+CREATE TABLE IF NOT EXISTS supascript_js_modules (module text UNIQUE PRIMARY KEY,
+autoload BOOL DEFAULT FALSE,
+source text);
 
 CREATE OR REPLACE FUNCTION supascript_init() RETURNS VOID 
 AS $$
@@ -172,5 +172,7 @@ AS $$
         this.load(row.module, row.source);
     });
 $$ LANGUAGE PLV8;
+ALTER TABLE supascript_log ENABLE ROW LEVEL SECURITY;
+ALTER TABLE supascript_js_modules ENABLE ROW LEVEL SECURITY;
 ALTER PUBLICATION supabase_realtime ADD TABLE supascript_log;
 

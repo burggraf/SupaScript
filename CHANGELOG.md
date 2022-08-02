@@ -1,4 +1,8 @@
 # CHANGELOG
+## 1.5
+- `ALTER TABLE supascript_log ENABLE ROW LEVEL SECURITY;`
+- `ALTER TABLE supascript_js_modules ENABLE ROW LEVEL SECURITY;`
+Note:  This changes the security model for functions called from `anon` and `authenticated` user roles.
 ## 1.4
 ### Documentation Updated 01 May 2021
 - Major overhaul of the README.md file
